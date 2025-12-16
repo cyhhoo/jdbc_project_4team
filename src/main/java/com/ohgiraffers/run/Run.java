@@ -113,7 +113,7 @@ public class Run {
 
                     BookDTO book = new BookDTO(bookId, title, author, price);
                     tempList.add(book);
-                    System.out.println( book.getTitle());
+                    //System.out.println( book.getTitle());
                 }
             }
 
