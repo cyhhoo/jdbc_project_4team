@@ -91,7 +91,7 @@
             <header>
                 <div class="container header-content">
                     <h1><a href="${pageContext.request.contextPath}/" style="text-decoration: none; color: inherit;">도서
-                            관리 시스템</a></h1>
+                            예약 시스템</a></h1>
                     <c:if test="${not empty sessionScope.loginUser}">
                         <div class="user-info">
                             <span>${sessionScope.loginUser.name}님</span>

@@ -20,7 +20,7 @@ public class BookListServlet extends HttpServlet {
 
         BookService bookService = new BookService();
 
-        // 1. 모든 데이터 조회 (In-Memory Filtering/Paging for Blueprint simplicity)
+        // 1. 모든 데이터 조회
         List<BookDTO> allBooks = bookService.selectAllBooks();
 
         // 2. 검색 필터링

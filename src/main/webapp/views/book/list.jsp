@@ -48,7 +48,7 @@
             <header>
                 <div class="container header-content">
                     <h1><a href="${pageContext.request.contextPath}/" style="text-decoration: none; color: inherit;">도서
-                            관리 시스템</a></h1>
+                            예약 시스템</a></h1>
                     <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
                         <a href="#" class="btn btn-primary">도서 등록</a>
                     </c:if>
