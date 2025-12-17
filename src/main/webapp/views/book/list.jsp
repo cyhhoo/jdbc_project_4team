@@ -50,7 +50,7 @@
                     <h1><a href="${pageContext.request.contextPath}/" style="text-decoration: none; color: inherit;">도서
                             예약 시스템</a></h1>
                     <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
-                        <a href="#" class="btn btn-primary">도서 등록</a>
+                        <a href="#" class="btn btn-primary" onclick="alert('구현 예정: 수정')" >도서 등록</a>
                     </c:if>
                 </div>
             </header>
@@ -108,8 +108,8 @@
                                                     <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
                                                         <td>
                                                             <div class="actions">
-                                                                <button class="btn btn-sm btn-edit">수정</button>
-                                                                <button class="btn btn-sm btn-delete">삭제</button>
+                                                                <button class="btn btn-sm btn-edit" onclick="alert('구현 예정: 수정')">수정</button>
+                                                                <button class="btn btn-sm btn-delete" onclick="alert('구현 예정: 수정')">삭제</button>
                                                             </div>
                                                         </td>
                                                     </c:if>
