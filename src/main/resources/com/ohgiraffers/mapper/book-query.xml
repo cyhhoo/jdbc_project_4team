@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Book Queries</comment>
+    <entry key="selectAllBooks">
+        SELECT 
+            book_id,
+            title,
+            author,
+            price,
+            image_url
+        FROM tbl_book 
+        ORDER BY book_id ASC
+    </entry>
+    <entry key="selectBookById">
+        SELECT 
+            book_id,
+            title,
+            author,
+            price,
+            image_url
+        FROM tbl_book 
+        WHERE book_id = ?
+    </entry>
+</properties>

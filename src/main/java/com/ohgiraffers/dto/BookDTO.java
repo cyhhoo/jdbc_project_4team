@@ -1,53 +1,30 @@
 package com.ohgiraffers.dto;
 
-public class BookDTO implements Comparable<BookDTO>{
+public class BookDTO {
 
-    /* 도서 정보를 저장할 DTO 클래스를 만들어보자 */
-    private int number;
+    private int bookId;
     private String title;
     private String author;
     private int price;
+    private String imageUrl;
 
     public BookDTO() {
-
     }
 
-    public BookDTO(int number, String title, String author, int price) {
-        this.number = number;
+    public BookDTO(int bookId, String title, String author, int price, String imageUrl) {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
-    public BookDTO(BookDTO other){
-        this.number = other.number;
-        this.title = other.title;
-        this.author = other.author;
-        this.price = other.price;
+    public int getBookId() {
+        return bookId;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
@@ -58,17 +35,38 @@ public class BookDTO implements Comparable<BookDTO>{
         this.title = title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
-         return number + ". " + title + " "+  author + " " +  + price + "원";
+        return "BookDTO{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", price=" + price +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
-
-
-    @Override
-    public int compareTo(BookDTO o){
-//        return this.price - o.price; 가격순서
-        return this.title.compareTo(o.title);
-    }
-
-
 }
