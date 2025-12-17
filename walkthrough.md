@@ -1,37 +1,25 @@
-# 로그인 및 관리자 기능 구현 완료
+# 도서 데이터 생성 및 기능 구현 결과
 
-로그인 시스템, 관리자 권한 관리, 예약 메뉴 분리, 그리고 **도서 목록 화면의 권한 제어** 작업이 완료되었습니다.
+## 1. 도서 데이터 및 이미지 생성
+- 100권의 도서 데이터(`sql/book_data.sql`)와 SVG 플레이스홀더 이미지(`src/main/webapp/resources/images/`)를 생성했습니다.
+- **적용 방법**: 데이터베이스에 SQL 파일을 실행하면 됩니다.
 
-## 변경 사항 요약
+## 2. 시간별 도서 추천 기능
+- **기능**: 메인 페이지(`index.jsp`)의 "Today's Pick" 섹션이 1시간마다 자동으로 변경됩니다.
+- **구현**: `RecommendationService` 클래스가 현재 시간과 날짜를 기반으로 추천 도서를 선택합니다.
 
-### 데이터베이스
-- `tbl_user` 테이블 생성.
-- **관리자 계정**: `admin` / `admin`
-- **일반 사용자**: `user01` / `pass01`
+## 3. 코드 구조 개선 (Refactoring)
+- **Service 계층 도입**: `com.ohgiraffers.service` 패키지를 신설했습니다.
+    - `BookService`: 도서 관련 비즈니스 로직 처리.
+    - `UserService`: 사용자 로그인 등 처리.
+    - `RecommendationService`: 추천 알고리즘 처리.
+- **Controller(Servlet) 개선**: Servlet에서 직접적인 DAO 호출 코드를 제거하고 Service를 통해 데이터를 요청하도록 수정하여 유지보수성을 높였습니다.
 
-### 백엔드 (Java)
-- **UserDTO**: 사용자 정보 모델.
-- **UserDAO / LoginServlet**: 로그인 처리.
-- **CharacterEncodingFilter**: 전역 UTF-8 인코딩 필터 적용 (한글 깨짐 해결).
+## 변경된 파일 목록
+- `src/main/webapp/index.jsp`: 추천 도서 섹션 동적 처리 추가.
+- `src/main/java/com/ohgiraffers/service/*`: `BookService.java`, `UserService.java`, `RecommendationService.java` 추가.
+- `src/main/java/com/ohgiraffers/controller/*`: `LoginServlet.java`, `BookListServlet.java`, `BookDetailServlet.java` 수정.
 
-### 프론트엔드 (JSP)
-- **index.jsp**:
-    - 로그인/비로그인 상태 구분.
-    - **관리자**: 도서 관리 메뉴 보임, "7. 예약 관리" (전체 현황).
-    - **사용자**: 도서 관리 메뉴 숨김, "7. 도서 예약" (신청).
-    - `pageEncoding="UTF-8"` 지시어 추가로 뷰 렌더링 시 인코딩 문제 해결.
-- **list.jsp** (도서 목록):
-    - **관리자**: "도서 등록" 버튼, "관리" 컬럼(수정/삭제 버튼) **표시**.
-    - **사용자**: "도서 등록" 버튼, "관리" 컬럼(수정/삭제 버튼) **숨김**.
-
-## 실행 및 확인 방법
-
-1. **DB 설정**: `sql/user_schema.sql` 실행.
-2. **서버 실행**: Tomcat 서버 시작.
-3. **테스트**:
-    - **관리자 접속 (`admin`)**:
-        - メ인 메뉴: 모든 관리 메뉴 표시됨.
-        - 도서 목록: "도서 등록", "수정", "삭제" 버튼 표시됨.
-    - **일반 유저 접속 (`user01`)**:
-        - 메인 메뉴: 관리 메뉴 숨겨짐, "도서 예약"만 표시됨.
-        - 도서 목록: "도서 등록", "수정", "삭제" 버튼 **숨겨짐** (오직 조회만 가능).
+## 검증 방법
+- **추천 도서**: 메인 페이지 접속 시 이미지가 깨지지 않고 도서 정보가 잘 나오는지 확인. (시간이 지나면 바뀌는지 확인)
+- **기존 기능**: 로그인, 도서 목록 조회, 상세 조회가 이전과 동일하게 잘 작동하는지 확인.

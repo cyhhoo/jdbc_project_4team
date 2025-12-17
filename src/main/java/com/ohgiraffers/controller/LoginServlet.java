@@ -1,6 +1,6 @@
 package com.ohgiraffers.controller;
 
-import com.ohgiraffers.dao.UserDAO;
+import com.ohgiraffers.service.UserService;
 import com.ohgiraffers.dto.UserDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,10 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.Connection;
-
-import static com.ohgiraffers.common.JDBCTemplate.getConnection;
-import static com.ohgiraffers.common.JDBCTemplate.close;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -24,12 +20,8 @@ public class LoginServlet extends HttpServlet {
         String userId = request.getParameter("userId");
         String userPwd = request.getParameter("userPwd");
 
-        UserDAO userDAO = new UserDAO();
-        Connection con = getConnection();
-
-        UserDTO loginUser = userDAO.login(con, userId, userPwd);
-
-        close(con);
+        UserService userService = new UserService();
+        UserDTO loginUser = userService.login(userId, userPwd);
 
         if (loginUser != null) {
             HttpSession session = request.getSession();
