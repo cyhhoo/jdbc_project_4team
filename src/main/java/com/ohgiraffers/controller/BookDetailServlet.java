@@ -1,6 +1,6 @@
 package com.ohgiraffers.controller;
 
-import com.ohgiraffers.dao.BookDAO;
+import com.ohgiraffers.service.BookService;
 import com.ohgiraffers.dto.BookDTO;
 
 import jakarta.servlet.ServletException;
@@ -10,10 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Connection;
-
-import static com.ohgiraffers.common.JDBCTemplate.getConnection;
-import static com.ohgiraffers.common.JDBCTemplate.close;
 
 @WebServlet("/book/detail")
 public class BookDetailServlet extends HttpServlet {
@@ -30,12 +26,8 @@ public class BookDetailServlet extends HttpServlet {
             return;
         }
 
-        BookDAO bookDAO = new BookDAO();
-        Connection con = getConnection();
-
-        BookDTO book = bookDAO.selectBookById(con, bookId);
-
-        close(con);
+        BookService bookService = new BookService();
+        BookDTO book = bookService.selectBookById(bookId);
 
         if (book != null) {
             request.setAttribute("book", book);

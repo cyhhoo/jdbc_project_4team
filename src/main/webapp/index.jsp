@@ -5,14 +5,14 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>도서 관리 시스템</title>
+            <title>도서 예약 시스템</title>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
         </head>
 
         <body>
             <header>
                 <div class="container header-content">
-                    <h1>도서 관리 시스템</h1>
+                    <h1>도서 예약 시스템</h1>
                     <c:if test="${not empty sessionScope.loginUser}">
                         <div class="user-info">
                             <span>${sessionScope.loginUser.name}님 환영합니다!</span>
@@ -56,59 +56,75 @@
                         </div>
 
                         <!-- 오늘의 도서 추천 섹션 -->
-                        <div class="featured-section">
-                            <div class="featured-label">Today's Pick</div>
-                            <div class="featured-image-container">
-                                <img src="${pageContext.request.contextPath}/resources/images/java_jungsuk.jpg"
-                                    alt="추천 도서" onerror="this.src='https://via.placeholder.com/150x220?text=No+Image'">
+                        <% com.ohgiraffers.service.RecommendationService recService=new
+                            com.ohgiraffers.service.RecommendationService(); com.ohgiraffers.dto.BookDTO
+                            todayBook=recService.getHourlyRecommendedBook(); %>
+                            <div class="featured-section">
+                                <div class="featured-label">Today's Pick</div>
+                                <% if (todayBook !=null) { %>
+                                    <div class="featured-image-container">
+                                        <img src="${pageContext.request.contextPath}<%= todayBook.getImageUrl() %>"
+                                            alt="추천 도서"
+                                            onerror="this.src='https://via.placeholder.com/150x220?text=No+Image'">
+                                    </div>
+                                    <div class="featured-title">
+                                        <%= todayBook.getTitle() %>
+                                    </div>
+                                    <div class="featured-author">
+                                        <%= todayBook.getAuthor() %> 저
+                                    </div>
+                                    <% } else { %>
+                                        <div class="featured-image-container">
+                                            <img src="https://via.placeholder.com/150x220?text=No+Books" alt="No Books">
+                                        </div>
+                                        <div class="featured-title">추천 도서를 불러올 수 없습니다.</div>
+                                        <% } %>
                             </div>
-                            <div class="featured-title">자바의 정석</div>
-                            <div class="featured-author">남궁성 저</div>
-                        </div>
 
-                        <div class="menu-grid">
-                            <a href="${pageContext.request.contextPath}/book/list" class="menu-card">
-                                <div class="menu-title">도서 조회</div>
-                                <div class="menu-desc">도서 목록 확인 및 검색</div>
-                            </a>
-
-
-
-                            <!-- 관리자 전용 메뉴 -->
-                            <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
-                                <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 추가')">
-                                    <div class="menu-title">도서 추가</div>
-                                    <div class="menu-desc">새로운 도서 등록</div>
+                            <div class="menu-grid">
+                                <a href="${pageContext.request.contextPath}/book/list" class="menu-card">
+                                    <div class="menu-title">도서 조회</div>
+                                    <div class="menu-desc">도서 목록 확인 및 검색</div>
                                 </a>
 
-                                <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 수정')">
-                                    <div class="menu-title">도서 수정</div>
-                                    <div class="menu-desc">도서 정보 수정 </div>
-                                </a>
 
-                                <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 제거')">
-                                    <div class="menu-title">도서 제거</div>
-                                    <div class="menu-desc">도서 삭제 </div>
-                                </a>
-                            </c:if>
 
-                            <!-- 예약 관련 메뉴 분리 -->
-                            <c:choose>
-                                <c:when test="${sessionScope.loginUser.role eq 'ADMIN'}">
-                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 예약 관리 (관리자)')">
-                                        <div class="menu-title">예약 관리</div>
-                                        <div class="menu-desc">전체 예약 현황 관리</div>
+                                <!-- 관리자 전용 메뉴 -->
+                                <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
+                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 추가')">
+                                        <div class="menu-title">도서 추가</div>
+                                        <div class="menu-desc">새로운 도서 등록</div>
                                     </a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="#" class="menu-card" onclick="alert('구현 예정입니다: 도서 예약 (사용자)')">
-                                        <div class="menu-title">도서 예약</div>
-                                        <div class="menu-desc">도서 대출 예약 신청</div>
-                                    </a>
-                                </c:otherwise>
-                            </c:choose>
 
-                        </div>
+                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 수정')">
+                                        <div class="menu-title">도서 수정</div>
+                                        <div class="menu-desc">도서 정보 수정 </div>
+                                    </a>
+
+                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 제거')">
+                                        <div class="menu-title">도서 제거</div>
+                                        <div class="menu-desc">도서 삭제 </div>
+                                    </a>
+                                </c:if>
+
+                                <!-- 예약 관련 메뉴 분리 -->
+                                <c:choose>
+                                    <c:when test="${sessionScope.loginUser.role eq 'ADMIN'}">
+                                        <a href="#" class="menu-card admin-card"
+                                            onclick="alert('구현 예정입니다: 예약 관리 (관리자)')">
+                                            <div class="menu-title">예약 관리</div>
+                                            <div class="menu-desc">전체 예약 현황 관리</div>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" class="menu-card" onclick="alert('구현 예정입니다: 도서 예약 (사용자)')">
+                                            <div class="menu-title">도서 예약</div>
+                                            <div class="menu-desc">도서 대출 예약 신청</div>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+
+                            </div>
                     </c:otherwise>
                 </c:choose>
 
