@@ -45,6 +45,10 @@
                                         placeholder="비밀번호를 입력하세요">
                                 </div>
                                 <button type="submit" class="btn-login">로그인</button>
+                                <div style="margin-top: 10px; text-align: center;">
+                                    <a href="${pageContext.request.contextPath}/regist"
+                                        style="color: #666; text-decoration: none;">회원가입</a>
+                                </div>
                             </form>
                         </div>
                     </c:when>
