@@ -4,25 +4,26 @@
     <comment>Book Queries</comment>
     <entry key="selectAllBooks">
         SELECT
-            book_id,
-            title,
-            author,
-            price,
-            image_url
+        book_id,
+        title,
+        author,
+        price,
+        image_url
         FROM tbl_book
         ORDER BY book_id ASC
     </entry>
     <entry key="selectBookById">
         SELECT
-            book_id,
-            title,
-            author,
-            price,
-            image_url
+        book_id,
+        title,
+        author,
+        price,
+        image_url
         FROM tbl_book
         WHERE book_id = ?
     </entry>
 
+<<<<<<< HEAD
     <entry key="updateBook">
         UPDATE tbl_book
         SET title = ?,
@@ -30,23 +31,47 @@
         price = ?,
         image_url =?
         WHERE book_id = ?
+=======
+    <entry key="deleteBookById">
+    DELETE
+    FROM tbl_book
+    WHERE book_id = ?
+    </entry>
+    <entry key="updateBook">
+    UPDATE tbl_book
+    SET title = ?,
+    author = ?,
+    price = ?,
+    image_url = ?
+    WHERE book_id = ?
+>>>>>>> 53648c971bed22f462c8c052cda09a1b8dfc2c4e
     </entry>
 
     <entry key="insertBook">
         INSERT
-            INTO tbl_book
-            (
-            title,
-            author,
-            price,
-            image_url
-            )
+        INTO tbl_book
+        (
+        title,
+        author,
+        price,
+        image_url
+        )
         VALUES
+<<<<<<< HEAD
             (
             ?,
             ?,
             ?,
             ?
             )
+=======
+        (
+        ?,
+        ?,
+        ?,
+        ?
+        )
+
+>>>>>>> 53648c971bed22f462c8c052cda09a1b8dfc2c4e
     </entry>
 </properties>

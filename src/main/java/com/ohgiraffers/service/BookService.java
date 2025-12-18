@@ -30,6 +30,27 @@ public class BookService {
         return book;
     }
 
+
+    public BookDTO deleteBook(int bookId){
+      Connection con = getConnection();
+
+      BookDTO book = bookDAO.selectBookById(con, bookId);
+
+      if(book == null) return null;
+
+      int result = bookDAO.deleteBookById(con, bookId);
+
+      if(result > 0) {
+        commit(con);
+        return book;
+
+      } else{
+        rollback(con);
+        return null;
+      }
+
+    }
+
     public int modifyBook(BookDTO modifyBook) {
         Connection con = getConnection();
         int result = bookDAO.updateBook(con, modifyBook);
@@ -58,3 +79,4 @@ public class BookService {
         return result;
     }
 }
+

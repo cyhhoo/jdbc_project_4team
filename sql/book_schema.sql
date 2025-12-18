@@ -1,11 +1,14 @@
 CREATE DATABASE IF NOT EXISTS bookdb;
 USE bookdb;
+GRANT CREATE ON *.* TO 'swcamp'@'%';
+
 
 GRANT CREATE ON *.* TO 'swcamp'@'%';
 
 GRANT ALL PRIVILEGES ON bookdb.* TO 'swcamp'@'%';
 
 FLUSH PRIVILEGES;
+
 
 CREATE TABLE IF NOT EXISTS tbl_book (
     book_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '도서 번호',
