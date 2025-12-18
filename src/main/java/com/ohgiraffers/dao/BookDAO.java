@@ -20,12 +20,12 @@ public class BookDAO {
 
   public BookDAO() {
     try {
-      // Load queries from XML
-      // Note: Since this is a web app, we might need to load via ClassLoader
-      prop.loadFromXML(BookDAO.class.getClassLoader()
-          .getResourceAsStream("com/ohgiraffers/mapper/book-query.xml"));
+      // Load queries from XML using a more robust path
+      String resourcePath = "com/ohgiraffers/mapper/book-query.xml";
+      prop.loadFromXML(BookDAO.class.getClassLoader().getResourceAsStream(resourcePath));
     } catch (IOException e) {
-      e.printStackTrace();
+      // If loading fails, throw a runtime exception to stop the application immediately
+      throw new RuntimeException("Failed to load book-query.xml", e);
     }
   }
 
@@ -123,9 +123,9 @@ public class BookDAO {
     public int updateBook(Connection con, BookDTO bookDTO) {
         int result = 0;
         PreparedStatement pstmt = null;
+        String sql = prop.getProperty("updateBook");
 
         try {
-            String sql = prop.getProperty("updateBook");
             pstmt = con.prepareStatement(sql);
 
             pstmt.setString(1, bookDTO.getTitle());
@@ -148,16 +148,15 @@ public class BookDAO {
       int result = 0;
 
       PreparedStatement pstmt = null;
+      String sql = prop.getProperty("deleteBookById");
 
       try {
-        String sql = prop.getProperty("deleteBookById");
-
         pstmt = con.prepareStatement(sql);
 
         pstmt.setInt(1, bookId);
 
         result = pstmt.executeUpdate();
-      } catch (Exception e){
+      } catch (SQLException e){
         throw new RuntimeException(e);
       }finally {
         close(pstmt);

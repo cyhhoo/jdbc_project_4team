@@ -190,18 +190,10 @@
                         <div class="menu-desc">새로운 도서 등록</div>
                     </a>
 
-<<<<<<< HEAD
-                                                    <a href="${pageContext.request.contextPath}/book/update" class="menu-card admin-card">
-                                                        <div class="menu-title">도서 수정</div>
-                                                        <div css="menu-desc">목록에서 수정할 도서 선택</div>
-                                                    </a>
-=======
-                    <a href="#" class="menu-card admin-card"
-                       onclick="alert('구현 예정입니다: 도서 수정')">
+                    <a href="${pageContext.request.contextPath}/book/update" class="menu-card admin-card">
                         <div class="menu-title">도서 수정</div>
-                        <div class="menu-desc">도서 정보 수정</div>
+                        <div css="menu-desc">목록에서 수정할 도서 선택</div>
                     </a>
->>>>>>> 53648c971bed22f462c8c052cda09a1b8dfc2c4e
 
                     <a href="/book/delete" class="menu-card admin-card">
                         <div class="menu-title">도서 제거</div>

@@ -23,7 +23,7 @@
         WHERE book_id = ?
     </entry>
 
-<<<<<<< HEAD
+
     <entry key="updateBook">
         UPDATE tbl_book
         SET title = ?,
@@ -31,20 +31,12 @@
         price = ?,
         image_url =?
         WHERE book_id = ?
-=======
+    </entry>
+
     <entry key="deleteBookById">
     DELETE
     FROM tbl_book
     WHERE book_id = ?
-    </entry>
-    <entry key="updateBook">
-    UPDATE tbl_book
-    SET title = ?,
-    author = ?,
-    price = ?,
-    image_url = ?
-    WHERE book_id = ?
->>>>>>> 53648c971bed22f462c8c052cda09a1b8dfc2c4e
     </entry>
 
     <entry key="insertBook">
@@ -57,14 +49,7 @@
         image_url
         )
         VALUES
-<<<<<<< HEAD
-            (
-            ?,
-            ?,
-            ?,
-            ?
-            )
-=======
+
         (
         ?,
         ?,
@@ -72,6 +57,5 @@
         ?
         )
 
->>>>>>> 53648c971bed22f462c8c052cda09a1b8dfc2c4e
     </entry>
 </properties>

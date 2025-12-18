@@ -113,19 +113,7 @@
                                                 </td>
                                                 <td>${book.author}</td>
                                                 <%-- <td class="price-tag">${book.price}원</td> --%>
-<<<<<<< HEAD
-                                            <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
-                                                <td>
-                                                    <div class="actions">
-                                                        <button class="btn btn-sm btn-edit"
-                                                                onclick="location.href='${pageContext.request.contextPath}/book/update?bookId=${book.bookId}'">
-                                                            수정
-                                                        </button>
-                                                        <button class="btn btn-sm btn-delete">삭제</button>
-                                                    </div>
-                                                </td>
-                                            </c:if>
-=======
+
                                                     <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
                                                         <td>
                                                             <div class="actions">
@@ -134,7 +122,7 @@
                                                             </div>
                                                         </td>
                                                     </c:if>
->>>>>>> 53648c971bed22f462c8c052cda09a1b8dfc2c4e
+
                                         </tr>
                                     </c:forEach>
                                 </c:when>
