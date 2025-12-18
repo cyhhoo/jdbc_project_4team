@@ -37,7 +37,14 @@
                             <form action="${pageContext.request.contextPath}/login" method="post" class="login-form">
                                 <div class="form-group">
                                     <label for="userId">아이디</label>
-                                    <input type="text" id="userId" name="userId" required placeholder="아이디를 입력하세요">
+                                    <input type="text" id="userId" name="userId"
+                                           value="${cookie.saveUserId.value}"
+                                           required placeholder="아이디를 입력하세요">
+                                    <!-- TODO: 쿠키에 저장된 아이디가 있다면 value에 설정 -->
+                                </div>
+                                <div class="form-group" style="flex-direction: row; align-items: center; gap: 5px;">
+                                    <input type="checkbox" id="saveId" name="saveId">
+                                    <label for="saveId" style="margin-bottom: 0;">아이디 저장</label>
                                 </div>
                                 <div class="form-group">
                                     <label for="userPwd">비밀번호</label>
@@ -45,6 +52,10 @@
                                         placeholder="비밀번호를 입력하세요">
                                 </div>
                                 <button type="submit" class="btn-login">로그인</button>
+                                <div style="margin-top: 10px; text-align: center;">
+                                    <a href="${pageContext.request.contextPath}/regist"
+                                        style="color: #666; text-decoration: none;">회원가입</a>
+                                </div>
                             </form>
                         </div>
                     </c:when>
@@ -80,6 +91,28 @@
                                         <div class="featured-title">추천 도서를 불러올 수 없습니다.</div>
                                         <% } %>
                             </div>
+
+                            <!-- 최근 본 도서 섹션 (Skeleton) -->
+                            <div class="recent-books-section"
+                                style="margin-top: 2rem; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                <h3>최근 본 도서</h3>
+                                <!-- TODO: [최근 본 도서 목록 표시 구현] -->
+                                <!-- 1) request에서 최근 본 도서 목록(List<BookDTO>)을 가져와서 반복문(c:forEach)으로 출력 -->
+                                <c:forEach var="book" items="${recentBook}" varStatus="상태변수">
+                                    <p>도서 제목: ${변수명.title}</p>
+                                </c:forEach>
+                                <!-- 2) 데이터가 없을 경우 "최근 본 도서가 없습니다" 메시지 표시 -->
+
+                                <div class="recent-books-list"
+                                    style="display: flex; gap: 1rem; overflow-x: auto; padding: 10px 0;">
+                                    <!-- 예시용 더미 데이터 (구현 후 삭제) -->
+                                    <div style="color: #999; font-style: italic;">
+                                        여기에 최근 본 도서가 표시됩니다.<br>
+                                        (상세 페이지 진입 시 쿠키 저장 -> 메인에서 쿠키 읽기 -> DB 조회 -> 표시)
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="menu-grid">
                                 <a href="${pageContext.request.contextPath}/book/list" class="menu-card">
