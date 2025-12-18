@@ -3,19 +3,29 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-.kotlin
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+../.idea/
+**/.idea/
 *.iml
+*.iws
 *.ipr
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+
+### log ###
+*.log
+
+### 임시파일 ###
+*.tmp
+*.wsp
 
 ### Eclipse ###
 .apt_generated
