@@ -1,5 +1,10 @@
 CREATE DATABASE IF NOT EXISTS bookdb;
 USE bookdb;
+GRANT CREATE ON *.* TO 'swcamp'@'%';
+
+GRANT ALL PRIVILEGES ON bookdb.* TO 'swcamp'@'%';
+
+FLUSH PRIVILEGES;
 
 CREATE TABLE IF NOT EXISTS tbl_user (
     user_no INT AUTO_INCREMENT PRIMARY KEY COMMENT '사용자 번호',
