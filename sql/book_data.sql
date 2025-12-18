@@ -1,4 +1,10 @@
-﻿USE bookdb;
+﻿    USE bookdb;
+
+    GRANT CREATE ON *.* TO 'swcamp'@'%';
+
+    GRANT ALL PRIVILEGES ON bookdb.* TO 'swcamp'@'%';
+
+    FLUSH PRIVILEGES;
 
 INSERT INTO tbl_book (title, author, price, image_url)
 VALUES ('Hidden Security Principles', 'Smith Doe', 33000, '/resources/images/book_1.svg'),

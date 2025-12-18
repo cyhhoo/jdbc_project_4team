@@ -30,19 +30,31 @@ public class BookService {
         return book;
     }
 
+    public int modifyBook(BookDTO modifyBook) {
+        Connection con = getConnection();
+        int result = bookDAO.updateBook(con, modifyBook);
+
+        if (result > 0) {
+            commit(con);
+        } else {
+            rollback(con);
+        }
+
+        close(con);
+        return result;
+    }
+
     public int insertBook(BookDTO book) {
-      Connection con = getConnection();
+        Connection con = getConnection();
+        int result = bookDAO.insertBook(con, book);
 
-      int result = bookDAO.insertBook(con, book);
+        if (result > 0) {
+            commit(con);
+        } else {
+            rollback(con);
+        }
 
-      // 성공 여부에 따라 commit/rollback 지정
-      if (result > 0) {
-        commit(con);
-      }else {
-        rollback(con);
-      }
-
-      close(con);
-      return result;
+        close(con);
+        return result;
     }
 }

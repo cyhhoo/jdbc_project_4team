@@ -116,7 +116,7 @@
                                                     <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
                                                         <td>
                                                             <div class="actions">
-                                                                <button class="btn btn-sm btn-edit">수정</button>
+                                                                <button class="btn btn-sm btn-edit" onclick="location.href='/book/update?bookId=${book.bookId}'">수정</button>
                                                                 <button class="btn btn-sm btn-delete">삭제</button>
                                                             </div>
                                                         </td>

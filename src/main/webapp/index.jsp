@@ -80,6 +80,21 @@
 <%--                                    </a>--%>
 <%--                                </c:if>--%>
 
+<<<<<<< HEAD
+                                    <a href="${pageContext.request.contextPath}/book/update?bookId=1" class="menu-card admin-card">
+                                        <div class="menu-title">도서 수정</div>
+                                        <div class="menu-desc">도서 정보 수정 </div>
+                                    </a>
+
+                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 제거')">
+                                        <div class="menu-title">도서 제거</div>
+                                        <div class="menu-desc">도서 삭제 </div>
+                                    </a>
+                                </c:if>
+
+                                <!-- 예약 관련 메뉴 분리 -->
+=======
+>>>>>>> cf952bffdcbec9348e488674220c7c5d0447b225
                                 <c:choose>
                                     <c:when test="${empty sessionScope.loginUser}">
                                         <!-- 로그인 폼 -->

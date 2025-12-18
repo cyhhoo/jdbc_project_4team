@@ -94,34 +94,53 @@ public class BookDAO {
     return book;
   }
 
-  public int insertBook(Connection con, BookDTO book) {
-    int result = 0;
+    public int insertBook(Connection con, BookDTO book) {
+        int result = 0;
+        PreparedStatement pstmt = null;
+        String query = prop.getProperty("insertBook");
 
-    PreparedStatement pstmt = null;
+        try {
+            pstmt = con.prepareStatement(query);
 
-    String query = prop.getProperty("insertBook");
+            pstmt.setString(1, book.getTitle());
+            pstmt.setString(2, book.getAuthor());
+            pstmt.setInt(3, book.getPrice());
+            pstmt.setString(4, book.getImageUrl());
 
-    try {
-      pstmt = con.prepareStatement(query);
+            result = pstmt.executeUpdate();
 
-      pstmt.setString(1, book.getTitle());
-      pstmt.setString(2, book.getAuthor());
-      pstmt.setInt(3, book.getPrice());
-      pstmt.setString(4, book.getImageUrl());
-
-      result = pstmt.executeUpdate();
-
-    }catch (SQLException e){
-      // MySQL/MariaDB에서 중복 키(Duplicate entry) 에러 코드는 1062입니다.
-      if (e.getErrorCode() == 1062) {
-        return -1; // 중복 발생 시 약속된 기호인 -1 반환
-      }
-      throw new RuntimeException(e);
-    }finally {
-      close(pstmt);
-
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                return -1;
+            }
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+        return result;
     }
-    return result;
-  }
 
+    public int updateBook(Connection con, BookDTO bookDTO) {
+        int result = 0;
+        PreparedStatement pstmt = null;
+
+        try {
+            String sql = prop.getProperty("updateBook");
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setString(1, bookDTO.getTitle());
+            pstmt.setString(2, bookDTO.getAuthor());
+            pstmt.setInt(3, bookDTO.getPrice());
+            pstmt.setString(4, bookDTO.getImageUrl());
+            pstmt.setInt(5, bookDTO.getBookId());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
 }
