@@ -22,15 +22,16 @@
         FROM tbl_book
         WHERE book_id = ?
     </entry>
-<<<<<<< HEAD
+
     <entry key="updateBook">
         UPDATE tbl_book
         SET title = ?,
         author = ?,
         price = ?,
-        image_url = ?
+        image_url =?
         WHERE book_id = ?
-=======
+    </entry>
+
     <entry key="insertBook">
         INSERT
             INTO tbl_book
@@ -47,6 +48,5 @@
             ?,
             ?
             )
->>>>>>> cf952bffdcbec9348e488674220c7c5d0447b225
     </entry>
 </properties>
