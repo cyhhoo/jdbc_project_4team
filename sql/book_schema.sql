@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS tbl_book (
     image_url VARCHAR(255) NULL COMMENT '이미지 경로'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='도서 목록';
 
+
+
 -- 샘플 데이터 삽입 (이미지 경로 포함)
 INSERT INTO tbl_book (title, author, price, image_url) VALUES 
 ('자바의 정석', '남궁성', 30000, '/resources/images/java_jungsuk.jpg'),

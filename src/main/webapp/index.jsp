@@ -62,8 +62,22 @@
 
                             <main class="container">
 
-                                <c:if test="${not empty requestScope.message}">
-                                    <script>alert('${requestScope.message}');</script>
+                                <!-- 관리자 전용 메뉴 -->
+                                <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
+                                    <a href="${pageContext.request.contextPath}/book/insert" class="menu-card admin-card">
+                                        <div class="menu-title">도서 추가</div>
+                                        <div class="menu-desc">새로운 도서 등록</div>
+                                    </a>
+
+                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 수정')">
+                                        <div class="menu-title">도서 수정</div>
+                                        <div class="menu-desc">도서 정보 수정 </div>
+                                    </a>
+
+                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 제거')">
+                                        <div class="menu-title">도서 제거</div>
+                                        <div class="menu-desc">도서 삭제 </div>
+                                    </a>
                                 </c:if>
 
                                 <c:choose>
