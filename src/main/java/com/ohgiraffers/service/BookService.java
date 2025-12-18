@@ -6,8 +6,7 @@ import com.ohgiraffers.dto.BookDTO;
 import java.sql.Connection;
 import java.util.List;
 
-import static com.ohgiraffers.common.JDBCTemplate.getConnection;
-import static com.ohgiraffers.common.JDBCTemplate.close;
+import static com.ohgiraffers.common.JDBCTemplate.*;
 
 public class BookService {
 
@@ -32,19 +31,30 @@ public class BookService {
     }
 
     public int modifyBook(BookDTO modifyBook) {
-
         Connection con = getConnection();
+        int result = bookDAO.updateBook(con, modifyBook);
 
-        BookDAO bookdao = new BookDAO();
-
-        int result = bookdao.updateBook(con, modifyBook);
-        try {
-            if (result > 0) con.commit();
-
-            else con.rollback();
-        } catch (Exception e) {
-
+        if (result > 0) {
+            commit(con);
+        } else {
+            rollback(con);
         }
+
+        close(con);
+        return result;
+    }
+
+    public int insertBook(BookDTO book) {
+        Connection con = getConnection();
+        int result = bookDAO.insertBook(con, book);
+
+        if (result > 0) {
+            commit(con);
+        } else {
+            rollback(con);
+        }
+
+        close(con);
         return result;
     }
 }

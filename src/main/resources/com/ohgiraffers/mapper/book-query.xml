@@ -3,25 +3,26 @@
 <properties>
     <comment>Book Queries</comment>
     <entry key="selectAllBooks">
-        SELECT 
+        SELECT
             book_id,
             title,
             author,
             price,
             image_url
-        FROM tbl_book 
+        FROM tbl_book
         ORDER BY book_id ASC
     </entry>
     <entry key="selectBookById">
-        SELECT 
+        SELECT
             book_id,
             title,
             author,
             price,
             image_url
-        FROM tbl_book 
+        FROM tbl_book
         WHERE book_id = ?
     </entry>
+<<<<<<< HEAD
     <entry key="updateBook">
         UPDATE tbl_book
         SET title = ?,
@@ -29,5 +30,23 @@
         price = ?,
         image_url = ?
         WHERE book_id = ?
+=======
+    <entry key="insertBook">
+        INSERT
+            INTO tbl_book
+            (
+            title,
+            author,
+            price,
+            image_url
+            )
+        VALUES
+            (
+            ?,
+            ?,
+            ?,
+            ?
+            )
+>>>>>>> cf952bffdcbec9348e488674220c7c5d0447b225
     </entry>
 </properties>
