@@ -6,8 +6,7 @@ import com.ohgiraffers.dto.BookDTO;
 import java.sql.Connection;
 import java.util.List;
 
-import static com.ohgiraffers.common.JDBCTemplate.getConnection;
-import static com.ohgiraffers.common.JDBCTemplate.close;
+import static com.ohgiraffers.common.JDBCTemplate.*;
 
 public class BookService {
 
@@ -29,5 +28,21 @@ public class BookService {
         BookDTO book = bookDAO.selectBookById(con, bookId);
         close(con);
         return book;
+    }
+
+    public int insertBook(BookDTO book) {
+      Connection con = getConnection();
+
+      int result = bookDAO.insertBook(con, book);
+
+      // 성공 여부에 따라 commit/rollback 지정
+      if (result > 0) {
+        commit(con);
+      }else {
+        rollback(con);
+      }
+
+      close(con);
+      return result;
     }
 }

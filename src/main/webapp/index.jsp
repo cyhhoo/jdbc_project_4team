@@ -91,7 +91,7 @@
 
                                 <!-- 관리자 전용 메뉴 -->
                                 <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
-                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 추가')">
+                                    <a href="${pageContext.request.contextPath}/book/insert" class="menu-card admin-card">
                                         <div class="menu-title">도서 추가</div>
                                         <div class="menu-desc">새로운 도서 등록</div>
                                     </a>
