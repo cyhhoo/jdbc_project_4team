@@ -100,8 +100,7 @@
                                         <div class="menu-title">도서 수정</div>
                                         <div class="menu-desc">도서 정보 수정 </div>
                                     </a>
-
-                                    <a href="#" class="menu-card admin-card" onclick="alert('구현 예정입니다: 도서 제거')">
+                                    <a href="${pageContext.request.contextPath}/book/delete" class="menu-card">
                                         <div class="menu-title">도서 제거</div>
                                         <div class="menu-desc">도서 삭제 </div>
                                     </a>

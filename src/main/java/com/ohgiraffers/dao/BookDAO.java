@@ -99,7 +99,7 @@ public class BookDAO {
       PreparedStatement pstmt = null;
 
       try {
-        String sql = prop.getProperty("deleteMenu");
+        String sql = prop.getProperty("deleteBookById");
 
         pstmt = con.prepareStatement(sql);
 

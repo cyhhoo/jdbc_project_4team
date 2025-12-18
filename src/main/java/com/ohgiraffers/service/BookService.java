@@ -30,14 +30,23 @@ public class BookService {
         return book;
     }
 
-    public int deleteBook(int bookId){
+    public BookDTO deleteBook(int bookId){
       Connection con = getConnection();
+
+      BookDTO book = bookDAO.selectBookById(con, bookId);
+
+      if(book == null) return null;
 
       int result = bookDAO.deleteBookById(con, bookId);
 
-      if(result > 0) commit(con);
-      else rollback(con);
+      if(result > 0) {
+        commit(con);
+        return book;
 
-      return result;
+      } else{
+        rollback(con);
+        return null;
+      }
+
     }
 }
