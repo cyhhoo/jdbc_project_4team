@@ -92,4 +92,26 @@ public class BookDAO {
 
         return book;
     }
+
+    public int deleteBookById(Connection con, int bookId){
+      int result = 0;
+
+      PreparedStatement pstmt = null;
+
+      try {
+        String sql = prop.getProperty("deleteMenu");
+
+        pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, bookId);
+
+        result = pstmt.executeUpdate();
+      } catch (Exception e){
+        throw new RuntimeException(e);
+      }finally {
+        close(pstmt);
+      }
+      return result;
+    }
+
 }

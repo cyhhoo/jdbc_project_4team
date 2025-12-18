@@ -1,4 +1,4 @@
-﻿USE bookdb;
+﻿USE menudb;
 
 INSERT INTO tbl_book (title, author, price, image_url)
 VALUES ('Hidden Security Principles', 'Smith Doe', 33000, '/resources/images/book_1.svg'),

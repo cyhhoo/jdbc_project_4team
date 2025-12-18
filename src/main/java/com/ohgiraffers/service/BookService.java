@@ -6,8 +6,7 @@ import com.ohgiraffers.dto.BookDTO;
 import java.sql.Connection;
 import java.util.List;
 
-import static com.ohgiraffers.common.JDBCTemplate.getConnection;
-import static com.ohgiraffers.common.JDBCTemplate.close;
+import static com.ohgiraffers.common.JDBCTemplate.*;
 
 public class BookService {
 
@@ -29,5 +28,16 @@ public class BookService {
         BookDTO book = bookDAO.selectBookById(con, bookId);
         close(con);
         return book;
+    }
+
+    public int deleteBook(int bookId){
+      Connection con = getConnection();
+
+      int result = bookDAO.deleteBookById(con, bookId);
+
+      if(result > 0) commit(con);
+      else rollback(con);
+
+      return result;
     }
 }

@@ -22,4 +22,9 @@
         FROM tbl_book 
         WHERE book_id = ?
     </entry>
+    <entry key="deleteBookById">
+        DELETE
+        FROM tbl_book
+        WHERE book_id = ?
+    </entry>
 </properties>
