@@ -26,3 +26,10 @@ SELECT * FROM (
 WHERE NOT EXISTS (
     SELECT user_id FROM tbl_user WHERE user_id = 'user01'
 ) LIMIT 1;
+
+GRANT CREATE ON *.* TO 'swcamp'@'%';
+
+GRANT ALL PRIVILEGES ON bookdb.* TO 'swcamp'@'%';
+
+FLUSH PRIVILEGES;
+

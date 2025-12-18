@@ -30,4 +30,21 @@ public class BookService {
         close(con);
         return book;
     }
+
+    public int modifyBook(BookDTO modifyBook) {
+
+        Connection con = getConnection();
+
+        BookDAO bookdao = new BookDAO();
+
+        int result = bookdao.updateBook(con, modifyBook);
+        try {
+            if (result > 0) con.commit();
+
+            else con.rollback();
+        } catch (Exception e) {
+
+        }
+        return result;
+    }
 }

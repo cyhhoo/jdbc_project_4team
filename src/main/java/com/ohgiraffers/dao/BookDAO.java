@@ -74,6 +74,7 @@ public class BookDAO {
             pstmt.setInt(1, bookId);
             rset = pstmt.executeQuery();
 
+
             if (rset.next()) {
                 book = new BookDTO();
                 book.setBookId(rset.getInt("book_id"));
@@ -92,4 +93,33 @@ public class BookDAO {
 
         return book;
     }
+
+    // ----------------- 강성훈 업데이트 기능 적용 -----------------
+    public int updateBook(Connection con, BookDTO bookDTO) {
+
+        int result = 0;
+
+        PreparedStatement pstmt = null;
+
+        try {
+            String sql = prop.getProperty("updateBook");
+
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setString(1, bookDTO.getTitle());
+            pstmt.setString(2, bookDTO.getAuthor());
+            pstmt.setInt(3, bookDTO.getPrice());
+            pstmt.setString(4, bookDTO.getImageUrl());
+            pstmt.setInt(5, bookDTO.getBookId());
+
+            result = pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw  new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+
 }

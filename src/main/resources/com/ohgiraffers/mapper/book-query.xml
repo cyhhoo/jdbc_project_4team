@@ -22,4 +22,12 @@
         FROM tbl_book 
         WHERE book_id = ?
     </entry>
+    <entry key="updateBook">
+        UPDATE tbl_book
+        SET title = ?,
+        author = ?,
+        price = ?,
+        image_url = ?
+        WHERE book_id = ?
+    </entry>
 </properties>

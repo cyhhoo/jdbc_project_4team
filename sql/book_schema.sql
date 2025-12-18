@@ -1,6 +1,12 @@
 CREATE DATABASE IF NOT EXISTS bookdb;
 USE bookdb;
 
+GRANT CREATE ON *.* TO 'swcamp'@'%';
+
+GRANT ALL PRIVILEGES ON bookdb.* TO 'swcamp'@'%';
+
+FLUSH PRIVILEGES;
+
 CREATE TABLE IF NOT EXISTS tbl_book (
     book_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '도서 번호',
     title VARCHAR(255) NOT NULL COMMENT '도서 제목',
@@ -16,3 +22,7 @@ INSERT INTO tbl_book (title, author, price, image_url) VALUES
 ('이펙티브 자바', '조슈아 블로크', 36000, NULL),
 ('헤드 퍼스트 디자인 패턴', '에릭 프리먼', 38000, NULL),
 ('클린 코드', '로버트 C. 마틴', 32000, NULL);
+
+show tables
+
+select * from tbl_book
