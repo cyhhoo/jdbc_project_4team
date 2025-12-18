@@ -1,4 +1,10 @@
-﻿USE bookdb;
+﻿    USE bookdb;
+
+    GRANT CREATE ON *.* TO 'swcamp'@'%';
+
+    GRANT ALL PRIVILEGES ON bookdb.* TO 'swcamp'@'%';
+
+    FLUSH PRIVILEGES;
 
 
 INSERT INTO tbl_book (title, author, price, image_url)
@@ -104,3 +110,8 @@ VALUES ('Hidden Security Principles', 'Smith Doe', 33000, '/resources/images/boo
        ('Practical Database handbook', 'Park Smith', 43000, '/resources/images/book_100.svg');
 
 
+INSERT INTO tbl_book (title, author, price) VALUES ('테스트', '작가', 10000);
+
+DELETE FROM tbl_book WHERE book_id = 34;
+
+ALTER TABLE tbl_book ADD UNIQUE (title, author);

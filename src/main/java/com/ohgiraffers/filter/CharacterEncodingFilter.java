@@ -11,14 +11,15 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 
-@WebFilter("/*")
+//@WebFilter("/*") // encoding = "UTF-8" 대신 아래 항목으로 작성할 때 이거 때문에 필터가 두번 등록 되면서 에러가 발생했었음
 public class CharacterEncodingFilter implements Filter {
 
     private String encoding;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        encoding = "UTF-8";
+//        encoding = "UTF-8";
+        encoding = filterConfig.getInitParameter("encoding-type");
     }
 
     @Override

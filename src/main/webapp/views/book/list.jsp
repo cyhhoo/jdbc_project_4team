@@ -50,10 +50,18 @@
                     <h1><a href="${pageContext.request.contextPath}/" style="text-decoration: none; color: inherit;">도서
                             관리 시스템</a></h1>
                     <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
-                        <a href="#" class="btn btn-primary">도서 등록</a>
+                        <a href="${pageContext.request.contextPath}/book/insert" class="btn btn-primary">도서 등록</a>
                     </c:if>
                 </div>
             </header>
+
+            <c:if test="${not empty sessionScope.successMessage}">
+                <script>
+                    alert('${sessionScope.successMessage}');
+                    <%-- 한 번 띄운 후에는 세션에서 메시지를 지워야 새로고침 시 다시 안 뜹니다. --%>
+                    <% session.removeAttribute("successMessage"); %>
+                </script>
+            </c:if>
 
             <main class="container">
                 <div class="card">
@@ -108,7 +116,7 @@
                                                     <c:if test="${sessionScope.loginUser.role eq 'ADMIN'}">
                                                         <td>
                                                             <div class="actions">
-                                                                <button class="btn btn-sm btn-edit">수정</button>
+                                                                <button class="btn btn-sm btn-edit" onclick="location.href='/book/update?bookId=${book.bookId}'">수정</button>
                                                                 <button class="btn btn-sm btn-delete">삭제</button>
                                                             </div>
                                                         </td>

@@ -1,6 +1,7 @@
 package com.ohgiraffers.dao;
 
 import com.ohgiraffers.dto.BookDTO;
+
 import static com.ohgiraffers.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
@@ -15,82 +16,132 @@ import java.util.Properties;
 
 public class BookDAO {
 
-    private Properties prop = new Properties();
+  private Properties prop = new Properties();
 
-    public BookDAO() {
-        try {
-            // Load queries from XML
-            // Note: Since this is a web app, we might need to load via ClassLoader
-            prop.loadFromXML(BookDAO.class.getClassLoader()
-                    .getResourceAsStream("com/ohgiraffers/mapper/book-query.xml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+  public BookDAO() {
+    try {
+      // Load queries from XML
+      // Note: Since this is a web app, we might need to load via ClassLoader
+      prop.loadFromXML(BookDAO.class.getClassLoader()
+          .getResourceAsStream("com/ohgiraffers/mapper/book-query.xml"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public List<BookDTO> selectAllBooks(Connection con) {
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+    List<BookDTO> bookList = null;
+
+    String query = prop.getProperty("selectAllBooks");
+
+    try {
+      pstmt = con.prepareStatement(query);
+      rset = pstmt.executeQuery();
+
+      bookList = new ArrayList<>();
+
+      while (rset.next()) {
+        BookDTO book = new BookDTO();
+        book.setBookId(rset.getInt("book_id"));
+        book.setTitle(rset.getString("title"));
+        book.setAuthor(rset.getString("author"));
+        book.setPrice(rset.getInt("price"));
+        book.setImageUrl(rset.getString("image_url"));
+
+        bookList.add(book);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      close(rset);
+      close(pstmt);
     }
 
-    public List<BookDTO> selectAllBooks(Connection con) {
-        PreparedStatement pstmt = null;
-        ResultSet rset = null;
-        List<BookDTO> bookList = null;
+    return bookList;
+  }
 
-        String query = prop.getProperty("selectAllBooks");
+  public BookDTO selectBookById(Connection con, int bookId) {
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+    BookDTO book = null;
+
+    String query = prop.getProperty("selectBookById");
+
+    try {
+      pstmt = con.prepareStatement(query);
+      pstmt.setInt(1, bookId);
+      rset = pstmt.executeQuery();
+
+      if (rset.next()) {
+        book = new BookDTO();
+        book.setBookId(rset.getInt("book_id"));
+        book.setTitle(rset.getString("title"));
+        book.setAuthor(rset.getString("author"));
+        book.setPrice(rset.getInt("price"));
+        book.setImageUrl(rset.getString("image_url"));
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      close(rset);
+      close(pstmt);
+    }
+
+    return book;
+  }
+
+    public int insertBook(Connection con, BookDTO book) {
+        int result = 0;
+        PreparedStatement pstmt = null;
+        String query = prop.getProperty("insertBook");
 
         try {
             pstmt = con.prepareStatement(query);
-            rset = pstmt.executeQuery();
 
-            bookList = new ArrayList<>();
+            pstmt.setString(1, book.getTitle());
+            pstmt.setString(2, book.getAuthor());
+            pstmt.setInt(3, book.getPrice());
+            pstmt.setString(4, book.getImageUrl());
 
-            while (rset.next()) {
-                BookDTO book = new BookDTO();
-                book.setBookId(rset.getInt("book_id"));
-                book.setTitle(rset.getString("title"));
-                book.setAuthor(rset.getString("author"));
-                book.setPrice(rset.getInt("price"));
-                book.setImageUrl(rset.getString("image_url"));
-
-                bookList.add(book);
-            }
+            result = pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            if (e.getErrorCode() == 1062) {
+                return -1;
+            }
+            throw new RuntimeException(e);
         } finally {
-            close(rset);
             close(pstmt);
         }
-
-        return bookList;
+        return result;
     }
 
-    public BookDTO selectBookById(Connection con, int bookId) {
+    public int updateBook(Connection con, BookDTO bookDTO) {
+        int result = 0;
         PreparedStatement pstmt = null;
-        ResultSet rset = null;
-        BookDTO book = null;
-
-        String query = prop.getProperty("selectBookById");
 
         try {
-            pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, bookId);
-            rset = pstmt.executeQuery();
+            String sql = prop.getProperty("updateBook");
+            pstmt = con.prepareStatement(sql);
 
-            if (rset.next()) {
-                book = new BookDTO();
-                book.setBookId(rset.getInt("book_id"));
-                book.setTitle(rset.getString("title"));
-                book.setAuthor(rset.getString("author"));
-                book.setPrice(rset.getInt("price"));
-                book.setImageUrl(rset.getString("image_url"));
-            }
+            pstmt.setString(1, bookDTO.getTitle());
+            pstmt.setString(2, bookDTO.getAuthor());
+            pstmt.setInt(3, bookDTO.getPrice());
+            pstmt.setString(4, bookDTO.getImageUrl());
+            pstmt.setInt(5, bookDTO.getBookId());
 
+            result = pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
-            close(rset);
             close(pstmt);
         }
 
-        return book;
+        return result;
     }
 
     public int deleteBookById(Connection con, int bookId){

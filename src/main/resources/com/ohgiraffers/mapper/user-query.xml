@@ -7,4 +7,16 @@
          WHERE user_id = ?
            AND user_pwd = ?
     </entry>
+    <entry key="registUser">
+        INSERT INTO tbl_user
+        (user_id, user_pwd, user_name)
+        VALUES
+        (?, ?, ?)
+    </entry>
+    <entry key="selectUserById">
+        SELECT *
+          FROM tbl_user
+         WHERE user_id = ?
+    </entry>
+
 </properties>
