@@ -30,7 +30,7 @@ public class BookService {
         return book;
     }
 
-<<<<<<< HEAD
+
     public BookDTO deleteBook(int bookId){
       Connection con = getConnection();
 
@@ -50,8 +50,7 @@ public class BookService {
       }
 
     }
-}
-=======
+
     public int modifyBook(BookDTO modifyBook) {
         Connection con = getConnection();
         int result = bookDAO.updateBook(con, modifyBook);
@@ -80,4 +79,4 @@ public class BookService {
         return result;
     }
 }
->>>>>>> main
+

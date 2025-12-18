@@ -117,7 +117,7 @@
                                                         <td>
                                                             <div class="actions">
                                                                 <button class="btn btn-sm btn-edit" onclick="location.href='/book/update?bookId=${book.bookId}'">수정</button>
-                                                                <button class="btn btn-sm btn-delete">삭제</button>
+                                                                <button class="btn btn-sm btn-delete" data-book-id="${book.bookId}">삭제</button>
                                                             </div>
                                                         </td>
                                                     </c:if>
@@ -166,6 +166,12 @@
             <footer>
                 <p>&copy; Team 4. 강성훈, 박찬진, 손창우, 최연후 </p>
             </footer>
+
+            <form name="deleteForm" action="/book/delete" method="post">
+                <input type="hidden" name="bookId">
+            </form>
+
+            <script  src="/resources/js/delete.js"></script>">
         </body>
 
         </html>
